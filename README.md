@@ -1,3 +1,2 @@
-# SudokuSolver
-Uses pycharm and recursion to solve Sudoku board
-Pycharm creates the gui
+# SodokuSolver
+Uses pycharm and recursion to solve Sodoku board
