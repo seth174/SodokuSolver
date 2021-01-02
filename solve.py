@@ -5,99 +5,75 @@ import pygame
 import random
 
 
-def works(row, column, board_1, value):
-    """returns a boolean on whether a value can work there"""
-    temp = board_1[int(row):int(row + 1), :9]
-    temp2 = board_1[:9, int(column): int(column + 1)]
-    if row < 3:
-        if column < 3:
-            temp3 = board_1[:3, :3]
-        elif column < 6:
-            temp3 = board_1[:3, 3:6]
+class Solve:
+    endSolve = False
+
+    def __init__(self, board):
+        self.board = board
+
+    def works(self, row, column, value):
+        """returns a boolean on whether a value can work there"""
+        temp = self.board[int(row):int(row + 1), :9]
+        temp2 = self.board[:9, int(column): int(column + 1)]
+        if row < 3:
+            if column < 3:
+                temp3 = self.board[:3, :3]
+            elif column < 6:
+                temp3 = self.board[:3, 3:6]
+            else:
+                temp3 = self.board[:3, 6:9]
+        elif row < 6:
+            if column < 3:
+                temp3 = self.board[3:6, :3]
+            elif column < 6:
+                temp3 = self.board[3:6, 3:6]
+            else:
+                temp3 = self.board[3:6, 6:9]
         else:
-            temp3 = board_1[:3, 6:9]
-    elif row < 6:
-        if column < 3:
-            temp3 = board_1[3:6, :3]
-        elif column < 6:
-            temp3 = board_1[3:6, 3:6]
+            if column < 3:
+                temp3 = self.board[6:9, :3]
+            elif column < 6:
+                temp3 = self.board[6:9, 3:6]
+            else:
+                temp3 = self.board[6:9, 6:9]
+        if value in temp:
+            return False
+        elif value in temp2:
+            return False
+        elif value in temp3:
+            return False
         else:
-            temp3 = board_1[3:6, 6:9]
-    else:
-        if column < 3:
-            temp3 = board_1[6:9, :3]
-        elif column < 6:
-            temp3 = board_1[6:9, 3:6]
+            return True
+
+    def solve(self, row, column, boards, screen, end=False):
+        """solves the sudoku board"""
+
+        if column == 8 and row == 8:
+            Solve.endSolve = True
+            return True
+        elif Solve.endSolve:
+            return True
         else:
-            temp3 = board_1[6:9, 6:9]
-    if value in temp:
-        return False
-    elif value in temp2:
-        return False
-    elif value in temp3:
-        return False
-    else:
-        return True
 
+            if column == 9.0:
+                row = row + 1.0
+                column = 0.0
+                self.solve(row, column, boards, screen)
+            if self.board[int(row)][int(column)] != 0:
+                column = column + 1
+                self.solve(row, column, boards, screen)
+            for value in range(1, 10):
+                if self.works(row, column, value):
+                    gui.update_board(self.board, screen, row, column, value)
+                    self.board[int(row)][int(column)] = value
+                    print(self.board)
+                    print(row)
+                    print(column)
 
-def new_board(board, screen, row, column, value):
-    screen = gui.update_board(board, screen, row, column, value)
-    pygame.display.update()
+                    if self.solve(row, column, boards, screen):
+                        end = True
+                        return True
 
+                    self.board[int(row)][int(column)] = 0
 
-def backtrack(boards, screen):
-    print('backtracking:')
-    print(f'board: {boards[-1]}')
-    temp = boards[-1]
-    temp_board = temp['board']
-    print(temp_board)
-    boards.pop()
-
-    solve(temp['row'], temp['column'],
-          temp_board,
-          boards, screen, int(int(temp['value']) + 1.0))
-
-
-def save_board(row, column, board, boards, screen, value_2):
-    print('saved:')
-
-    board[int(row)][int(column)] = value_2
-    temp_board = np.copy(board)
-    dictionary = {'board': temp_board, 'column': column, 'row': row, 'value': value_2}
-    boards.append(dictionary)
-
-    new_board(board, screen, row, column, value_2)
-    solve(int(row), int(column + 1), board, boards, screen)
-
-
-def solve(row, column, board, boards, screen,):
-    """solves the sudoku board"""
-
-    if board[8][8] != 0:
-        print('hello')
-        return True
-    else:
-
-        if column == 9.0:
-            row = row + 1.0
-            column = 0.0
-            solve(row, column, board, boards, screen)
-        if board[int(row)][int(column)] != 0:
-            column = column + 1
-            solve(row, column, board, boards, screen)
-        for value in range(1, 10):
-            if works(row, column, board, value):
-                gui.update_board(board, screen, row, column, value)
-                board[int(row)][int(column)] = value
-                print(board)
-                print(row)
-                print(column)
-
-                if solve(row, column, board, boards, screen):
-                    print('finished')
-                    return True
-
-                board[int(row)][int(column)] = 0
-
-        return False
-
+            return False

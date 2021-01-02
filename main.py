@@ -40,7 +40,7 @@ board[8][3] = 0
 board[8][4] = 0
 board[8][8] = 0
 boards = []
-
+new_solve = s.Solve(board)
 pygame.init()
 screen = pygame.display.set_mode((450, 600))
 gui.draw(screen=screen)
@@ -65,8 +65,8 @@ while running:
         elif event.type == pygame.KEYDOWN:
 
             if event.key == pygame.K_SPACE:
-                s.solve(row=0, column=0, board=board, screen=screen,
-                        boards=boards, )
+                new_solve.solve(row=0, column=0, screen=screen,
+                                boards=boards, )
             elif event.key == pygame.K_q:
                 running = False
             elif event.key == pygame.K_UP:
@@ -158,8 +158,8 @@ while running:
 
     gui.cursor(x_axis, y_axis, screen)
 
-s.solve(row=0, column=0, board=board, screen=screen,
-        boards=boards, )
+new_solve.solve(row=0, column=0, screen=screen,
+                boards=boards, )
 print(board)
 print(board)
 print('hi')
