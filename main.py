@@ -7,7 +7,6 @@ from pygame.locals import *
 import time
 import sys
 
-sys.setrecursionlimit(2000)
 board = np.zeros((9, 9))
 board[0][0] = 0
 board[0][4] = 0
@@ -160,6 +159,4 @@ while running:
 
 new_solve.solve(row=0, column=0, screen=screen,
                 boards=boards, )
-print(board)
-print(board)
-print('hi')
+

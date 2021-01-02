@@ -63,7 +63,7 @@ def place_number(board, screen, row, column, value):
 
 
 def place_number_3(screen, x_position, y_position, value):
-    screen.fill((150, 150, 150), (x_position, y_position, 25, 30))
+    screen.fill((150, 150, 150), (x_position, y_position, 22, 30))
     font = pygame.font.Font(None, 50)
     text = font.render(str(value), 1, (25, 67, 255))
     screen.blit(text, (x_position, y_position))
