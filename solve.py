@@ -87,6 +87,7 @@ def solve(row, column, board, boards, screen,):
             solve(row, column, board, boards, screen)
         for value in range(1, 10):
             if works(row, column, board, value):
+                gui.update_board(board, screen, row, column, value)
                 board[int(row)][int(column)] = value
                 print(board)
                 print(row)
