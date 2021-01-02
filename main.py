@@ -7,39 +7,38 @@ from pygame.locals import *
 import time
 import sys
 
-
 sys.setrecursionlimit(2000)
 board = np.zeros((9, 9))
-board[0][0] = 2
-board[0][4] = 4
-board[0][5] = 1
-board[0][6] = 6
-board[0][7] = 5
-board[1][3] = 9
-board[1][4] = 6
-board[1][5] = 3
-board[1][7] = 1
-board[2][1] = 1
-board[2][7] = 9
-board[3][7] = 8
-board[3][8] = 4
-board[4][0] = 9
-board[4][1] = 4
-board[4][7] = 7
-board[4][8] = 6
-board[5][0] = 8
-board[5][1] = 6
-board[6][1] = 2
-board[6][7] = 4
-board[7][1] = 7
-board[7][3] = 4
-board[7][4] = 5
-board[7][5] = 6
-board[8][1] = 8
-board[8][2] = 1
-board[8][3] = 7
-board[8][4] = 9
-board[8][8] = 3
+board[0][0] = 0
+board[0][4] = 0
+board[0][5] = 0
+board[0][6] = 0
+board[0][7] = 0
+board[1][3] = 0
+board[1][4] = 0
+board[1][5] = 0
+board[1][7] = 0
+board[2][1] = 0
+board[2][7] = 0
+board[3][7] = 0
+board[3][8] = 0
+board[4][0] = 0
+board[4][1] = 0
+board[4][7] = 0
+board[4][8] = 0
+board[5][0] = 0
+board[5][1] = 0
+board[6][1] = 0
+board[6][7] = 0
+board[7][1] = 0
+board[7][3] = 0
+board[7][4] = 0
+board[7][5] = 0
+board[8][1] = 0
+board[8][2] = 0
+board[8][3] = 0
+board[8][4] = 0
+board[8][8] = 0
 boards = []
 
 pygame.init()
@@ -66,8 +65,8 @@ while running:
         elif event.type == pygame.KEYDOWN:
 
             if event.key == pygame.K_SPACE:
-                s.solve(row=0, column=1, board=board, screen=screen,
-                        boards=boards, overide_value=1)
+                s.solve(row=0, column=0, board=board, screen=screen,
+                        boards=boards, )
             elif event.key == pygame.K_q:
                 running = False
             elif event.key == pygame.K_UP:
@@ -158,3 +157,9 @@ while running:
                     gui.cursor_2(x_axis_2, y_axis_2, screen)
 
     gui.cursor(x_axis, y_axis, screen)
+
+s.solve(row=0, column=0, board=board, screen=screen,
+        boards=boards, )
+print(board)
+print(board)
+print('hi')
